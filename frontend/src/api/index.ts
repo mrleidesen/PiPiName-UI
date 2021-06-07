@@ -1,5 +1,11 @@
 import service from './request'
 
-export const readStatus = async (name: string) => service.get('/api/status', { params: { name } })
+interface ResponseType {
+  success?: boolean
+  data?: any
+  [key: string]: any
+}
 
-export const getNameList = async (xing: string, source: number) => service.get('/api/names', { params: { xing, source } })
+export const readStatus = async (name: string): Promise<ResponseType> => service.get('/status', { params: { name } })
+
+export const getNameList = async (xing: string, source: number): Promise<ResponseType> => service.get('/names', { params: { xing, source } })
