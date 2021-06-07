@@ -5,14 +5,11 @@ from wuge import check_wuge_config, get_stroke_list
 def get_name():
     name_source = int(input("请选择词库，0: 默认, 1: 诗经, 2: 楚辞, 3: 论语, 4: 周易, 5: 唐诗, 6: 宋诗, 7: 宋词。请选择："))
     last_name = input("请输入姓氏，目前仅支持单姓：")
+    get_name_api(name_source=name_source, last_name=last_name)
 
-    # 不想要的字，结果中不会出现这些字
-    dislike_words_input = input("请输入不想要的单字，用','分开：")
-    dislike_words_split = dislike_words_input.split(',')
+def get_name_api(name_source: int, last_name: str, gender=""):
+     # 不想要的字，结果中不会出现这些字
     dislike_words = list("")
-    for i in dislike_words_split:
-        dislike_words.append(i.strip())
-
     def contain_bad_word(first_name):
         for word in first_name:
             if word in dislike_words:
@@ -30,29 +27,29 @@ def get_name():
     # 是否筛选名字，仅输出名字库中存在的名字，可以过滤明显不合适的名字
     name_validate = True
 
-    # 是否筛选性别，男/女，空则不筛选，仅当开启名字筛选时有效
-    gender = ""
     # 起名
     names = list()
-    with open("names.txt", "w+", encoding='utf-8') as f:
-        for i in get_source(name_source, name_validate, get_stroke_list(last_name, allow_general)):
-            if i.stroke_number1 < min_stroke_count or i.stroke_number1 > max_stroke_count or \
-                    i.stroke_number2 < min_stroke_count or i.stroke_number2 > max_stroke_count:
-                # 笔画数过滤
-                continue
-            if name_validate and gender != "" and i.gender != gender and i.gender != "双" and i.gender != "未知":
-                # 性别过滤
-                continue
-            if contain_bad_word(i.first_name):
-                # 不喜欢字过滤
-                continue
-            names.append(i)
-        print(">>输出结果...")
-        names.sort()
-        for i in names:
-            f.write(last_name + str(i) + "\n")
-        print(">>输出完毕，请查看「names.txt」文件")
-
+    for i in get_source(name_source, name_validate, get_stroke_list(last_name, allow_general)):
+        if i.stroke_number1 < min_stroke_count or i.stroke_number1 > max_stroke_count or \
+                i.stroke_number2 < min_stroke_count or i.stroke_number2 > max_stroke_count:
+            # 笔画数过滤
+            continue
+        if name_validate and gender != "" and i.gender != gender and i.gender != "双" and i.gender != "未知":
+            # 性别过滤
+            continue
+        if contain_bad_word(i.first_name):
+            # 不喜欢字过滤
+            continue
+        names.append(i)
+    print(">>输出结果...")
+    names.sort()
+    
+    name_list = []
+    for i in names:
+        name_list.append(last_name + str(i))
+    
+    return name_list
+    # print(">>输出完毕，请查看「names.txt」文件")
 
 def check_name_status():
     # 填入姓名，查看三才五格配置
@@ -61,13 +58,15 @@ def check_name_status():
         print(">>请输入2-4长度的姓名")
         check_name_status()
         return
-    # 是否显示名字来源
-    check_name_resource = int(input("是否显示名字来源，0.不显示，1.显示 > "))
+    check_name_api(check_name=check_name)
+    
+
+def check_name_api(check_name: str, check_name_resource: int=0):
     # 查看姓名配置
-    check_wuge_config(check_name)
-    if check_name_resource == 1:
-        check_resource(check_name)
-    print(">>输出完毕")
+    return check_wuge_config(check_name)
+    # if check_name_resource == 1:
+    #     check_resource(check_name)
+    # print(">>输出完毕")
 
 def run_app():
     check_type = int(input("请选择模式：0.取名, 1.查看三才五格 > "))
@@ -79,4 +78,4 @@ def run_app():
         print(">>模式选择错误")
         
 
-run_app()
+# run_app()

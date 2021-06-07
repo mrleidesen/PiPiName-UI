@@ -131,6 +131,16 @@ def check_wuge_config(name):
     print("总格\t" + str(zong) + "\t" + get_stroke_type(zong))
     print("外格\t" + str(wai) + "\t" + get_stroke_type(wai))
     print("\n三才\t" + sancai_config + "\t" + get_sancai_type(sancai_config) + "\n")
+    return {
+        "name": name,
+        "tian": tian,
+        "ren": ren,
+        "di": di,
+        "zong": zong,
+        "wai": wai,
+        "sancai": sancai_config,
+        "sancai_type": get_sancai_type(sancai_config)
+    }
 
 
 # 获取三才配置

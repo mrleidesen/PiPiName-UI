@@ -91,7 +91,7 @@ def get_name_dat(path, names, stroke_list):
         line_list = f.readlines()
         size = len(line_list)
         progress = 0
-        for i in range(0, size):
+        for i in range(random.randint(0, 1000), random.randint(1000, size), random.randint(0, 100)):
             # 生成进度
             if (i + 1) * 100 / size - progress >= 5:
                 progress += 5
