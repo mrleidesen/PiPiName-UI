@@ -131,11 +131,11 @@ def check_wuge_config(name):
     print("\n三才\t" + sancai_config + "\t" + get_sancai_type(sancai_config) + "\n")
     return {
         "name": name,
-        "tian": tian,
-        "ren": ren,
-        "di": di,
-        "zong": zong,
-        "wai": wai,
+        "tian": get_stroke_type(tian),
+        "ren": get_stroke_type(ren),
+        "di": get_stroke_type(di),
+        "zong": get_stroke_type(zong),
+        "wai": get_stroke_type(wai),
         "sancai": sancai_config,
         "sancai_type": get_sancai_type(sancai_config)
     }

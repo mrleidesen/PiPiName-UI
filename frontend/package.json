@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.2.5",
+    "axios": "^0.21.1",
     "postcss": "^8.2.9",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
