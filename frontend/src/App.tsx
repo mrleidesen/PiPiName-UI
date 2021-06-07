@@ -20,7 +20,7 @@ export default function App() {
     const loadStatus = async () => {
         setLoading(true)
         try {
-            const res = await readStatus(name)
+            const res = await readStatus(name.trim())
             if (res.success) {
                 setStatus(res.data)
             }
@@ -33,7 +33,7 @@ export default function App() {
     const loadNames = async () => {
         setLoading(true)
         try {
-            const res = await getNameList(xing, source)
+            const res = await getNameList(xing.trim(), source)
             if (res.success) {
                 setList(res.data)
             }

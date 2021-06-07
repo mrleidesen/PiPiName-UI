@@ -91,8 +91,8 @@ def get_name_dat(path, names, stroke_list):
         line_list = f.readlines()
         size = len(line_list)
         progress = 0
-        start = random.randint(0, (size - 1))
-        for i in range(start, size):
+        # start = random.randint(0, (size - 100))
+        for i in range(0, size, random.randint(4, 20)):
             # 生成进度
             if (i + 1) * 100 / size - progress >= 5:
                 progress += 5
@@ -121,8 +121,8 @@ def get_name_txt(path, names, stroke_list):
         line_list = f.readlines()
         size = len(line_list)
         progress = 0
-        start = random.randint(0, size - 1)
-        for i in range(start, size):
+        # start = random.randint(0, size - 100)
+        for i in range(0, size, random.randint(4, 20)):
             # 生成进度
             if (i + 1) * 100 / size - progress >= 10:
                 progress += 10
@@ -140,8 +140,8 @@ def get_name_json(path, names, column, stroke_list):
         data = json.loads(f.read())
         size = len(data)
         progress = 0
-        start = random.randint(0, size - 1)
-        for j in range(start, size):
+        # start = random.randint(0, size - 100)
+        for j in range(0, size, random.randint(4, 20)):
             # 生成进度
             if (j + 1) * 100 / size - progress >= 10:
                 progress += 10

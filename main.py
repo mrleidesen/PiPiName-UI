@@ -22,7 +22,7 @@ def get_name_api(name_source: int, last_name: str, gender=""):
     # 最大笔画数
     max_stroke_count = 30
     # 允许使用中吉，开启后将生成包含中吉配置的名字，生成的名字会更多
-    allow_general = False
+    allow_general = True
 
     # 是否筛选名字，仅输出名字库中存在的名字，可以过滤明显不合适的名字
     name_validate = True
