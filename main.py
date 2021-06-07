@@ -61,7 +61,7 @@ def check_name_status():
     check_name_api(check_name=check_name)
     
 
-def check_name_api(check_name: str, check_name_resource: int=0):
+def check_name_api(check_name: str):
     # 查看姓名配置
     return check_wuge_config(check_name)
     # if check_name_resource == 1:

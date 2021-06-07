@@ -104,11 +104,9 @@ def check_wuge_config(name):
     if len(name) > 2:
         ming2 = get_stroke_number(complex_name[2])
     elif len(name) == 4:
-        avg = get_stroke_number(complex_name[3]) // 3
-        xing += avg
-        ming1 += avg
-        ming2 += avg
-        
+        xing += get_stroke_number(complex_name[1])
+        ming1 = get_stroke_number(complex_name[2])
+        ming2 = get_stroke_number(complex_name[3])
     # 天格
     tian = xing + 1
     # 人格
