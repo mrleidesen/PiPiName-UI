@@ -56,16 +56,20 @@ export default function App() {
     }
 
     const onSearchStatus = () => {
-        const size = name.length
+        const size = name.trim().length
         if (size > 1 && size < 5) {
             loadStatus()
+        } else {
+            alert("请输入长度2-4的姓名")
         }
     }
 
     const onSearchNames = () => {
-        const size = xing.length
+        const size = xing.trim().length
         if (size > 0 && size < 3) {
             loadNames()
+        } else {
+            alert("请输入长度1-2的姓氏")
         }
     }
 
@@ -123,7 +127,7 @@ export default function App() {
                         <div className="w-80 mb-2 flex">
                                 <Input 
                                     value={xing}
-                                    placeholder="请输入您的姓名"
+                                    placeholder="请输入您的姓氏"
                                     allowClear
                                     onChange={onChangeXingInput}
                                 />
