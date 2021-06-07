@@ -1,4 +1,7 @@
-# PiPiName
+# PiPiName-UI
+Python取名代码改自[PiPiName](https://github.com/NanBox/PiPiName)
+
+改造成FastAPI
 
 根据三才五格，从诗经、楚辞、论语、周易、唐诗、宋词给宝宝取名。
 

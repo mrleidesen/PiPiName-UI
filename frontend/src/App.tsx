@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { getNameList, readStatus } from '@/api'
 import 'antd/dist/antd.css'
 
-import { Tabs, Input, Spin } from 'antd'
+import { Tabs, Input, Spin, Select, Button } from 'antd'
 
 const { TabPane } = Tabs
 const { Search } = Input
+const { Option } = Select
 
 export default function App() {
     const [name, setName] = useState("")
@@ -14,6 +15,7 @@ export default function App() {
     const [list, setList] = useState<string[]>([])
     const [status, setStatus] = useState<any>(null)
     const [loading, setLoading] = useState(false)
+    const selectOptions = ["默认", "诗经", "楚辞", "论语", "周易", "唐诗", "宋诗", "宋词"]
 
     const loadStatus = async () => {
         setLoading(true)
@@ -49,14 +51,35 @@ export default function App() {
         setXing(e.target.value)
     }
 
+    const onChangeSelect = (e: any) => {
+        setSource(parseInt(e))
+    }
+
     const onSearchStatus = () => {
-        loadStatus()
+        const size = name.length
+        if (size > 1 && size < 5) {
+            loadStatus()
+        }
     }
 
     const onSearchNames = () => {
-        loadNames()
+        const size = xing.length
+        if (size > 0 && size < 3) {
+            loadNames()
+        }
     }
 
+    const SelectComp = () => (
+        <Select 
+            defaultValue={source} 
+            className="select-after"
+            onChange={onChangeSelect}
+        >
+            {selectOptions.map((select, v) => (
+                <Option key={v} value={v}>{select}</Option>
+            ))}
+        </Select>
+    )
 
     return (
         <div className="w-full h-screen flex flex-col">
@@ -67,7 +90,7 @@ export default function App() {
                 <Tabs defaultActiveKey="1" type="card">
                     <TabPane tab="查看命格" key="1">
                         <div className="flex flex-col">
-                            <div className="w-80 mb-2">
+                            <div className="w-80 mb-2 flex">
                                 <Search 
                                     value={name}
                                     placeholder="请输入您的姓名"
@@ -80,7 +103,7 @@ export default function App() {
                             </div>
                             
                             {status ? (
-                                <div className="flex flex-col">
+                                <div className="flex flex-col" style={{ minHeight: 200 }}>
                                     <Spin spinning={loading}>
                                         <p>姓名：<b>{status.name}</b></p>
                                         <p>天格：<b>{status.tian}</b></p>
@@ -97,19 +120,22 @@ export default function App() {
                     </TabPane>
                     <TabPane tab="取名字" key="2">
                         <div className="flex flex-col">
-                            <div className="w-80 mb-2">
-                                <Search 
+                        <div className="w-80 mb-2 flex">
+                                <Input 
                                     value={xing}
-                                    placeholder="请输入您的姓氏"
+                                    placeholder="请输入您的姓名"
                                     allowClear
-                                    enterButton="查看"
-                                    loading={loading}
                                     onChange={onChangeXingInput}
-                                    onSearch={onSearchNames}
                                 />
+                                <SelectComp />
+                                <Button 
+                                    type="primary"
+                                    loading={loading} 
+                                    onClick={onSearchNames}
+                                >查看</Button>
                             </div>
                                 
-                            <div className="flex flex-col">
+                            <div className="flex flex-col" style={{ minHeight: 200 }}>
                                 <Spin spinning={loading}>
                                     {list.map((item, i) => (
                                         <p key={i}>{item}</p>
